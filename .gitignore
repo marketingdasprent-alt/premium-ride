@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.turbo/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+.env
+.env.local
+.env.*.local
+
+.cache/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #C9A84C;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background-image: linear-gradient(135deg, #C9A84C 0%, #F5D98B 50%, #C9A84C 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-radial-gold {
+    background-image: radial-gradient(
+      ellipse 80% 50% at 50% -10%,
+      rgba(201, 168, 76, 0.15) 0%,
+      transparent 70%
+    );
+  }
+}
