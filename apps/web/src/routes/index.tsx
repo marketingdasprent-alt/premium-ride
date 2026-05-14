@@ -70,8 +70,8 @@ function Index() {
             <ContactCard
               icon={<Phone className="h-5 w-5" />}
               label="Telemóvel"
-              value="910 128 228"
-              href="tel:+351910128228"
+              value="910 131 072 "
+              href="tel:+351910131072"
             />
             <ContactCard
               icon={<MapPin className="h-5 w-5" />}
