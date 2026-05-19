@@ -4,6 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0a0a0a" />
+
+    <!--
+      Google Consent Mode v2 — default state (must run BEFORE any gtag/analytics/ads/Cookie-Script).
+      O Cookie-Script é responsável por chamar gtag('consent','update', {...}) quando o utilizador aceita
+      (ativar em Cookie-Script Dashboard → GDPR → Google Consent Mode v2).
+      TODO: quando tiveres GA4 (G-XXXXXXX) e/ou Google Ads, adiciona o gtag.js loader abaixo deste bloco.
+    -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'denied',
+        personalization_storage: 'denied',
+        security_storage: 'granted',
+        wait_for_update: 500
+      });
+
+      gtag('set', 'ads_data_redaction', true);
+      gtag('set', 'url_passthrough', true);
+    </script>
+
+    <!-- Cookie-Script banner -->
+    <script type="text/javascript" charset="UTF-8" src="//cdn.cookie-script.com/s/3b5d62fbb4acb192a899ff0cd96db30a.js"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />

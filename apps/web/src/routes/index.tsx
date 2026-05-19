@@ -1,5 +1,5 @@
 import React from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Phone, MapPin } from "lucide-react";
 import logo from "@/assets/premiumride-logo-removebg-preview.png";
 
@@ -83,8 +83,19 @@ function Index() {
         </div>
 
         {/* Footer */}
-        <footer className="text-center text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
-          © {new Date().getFullYear()} Premium Ride · Conforto · Segurança · Excelência
+        <footer className="flex flex-col items-center gap-4 text-center text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+          <div>
+            © {new Date().getFullYear()} Premium Ride · Conforto · Segurança · Excelência
+          </div>
+          <nav className="flex items-center gap-4">
+            <Link to="/privacidade" className="transition-colors hover:text-gold">
+              Privacidade
+            </Link>
+            <span className="h-1 w-1 rotate-45 bg-gold/40" />
+            <Link to="/cookies" className="transition-colors hover:text-gold">
+              Cookies
+            </Link>
+          </nav>
         </footer>
       </div>
     </main>

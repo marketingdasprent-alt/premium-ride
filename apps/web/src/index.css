@@ -29,3 +29,31 @@
     );
   }
 }
+
+@layer components {
+  .legal-prose {
+    @apply text-[15px] leading-relaxed text-foreground/85;
+  }
+  .legal-prose h2 {
+    @apply mt-10 mb-3 font-display text-xl text-gold md:text-2xl;
+  }
+  .legal-prose p {
+    @apply mb-4;
+  }
+  .legal-prose ul {
+    @apply mb-4 list-disc space-y-2 pl-5 marker:text-gold/60;
+  }
+  .legal-prose a {
+    @apply text-gold underline-offset-4 transition-colors hover:underline;
+  }
+  .legal-prose strong {
+    @apply text-foreground;
+  }
+  .legal-prose code {
+    @apply rounded bg-gold/10 px-1.5 py-0.5 font-mono text-[13px] text-gold;
+  }
+
+  .legal-button {
+    @apply inline-flex items-center justify-center rounded-md border border-gold/40 bg-card/60 px-5 py-2.5 text-xs uppercase tracking-[0.3em] text-gold transition-all duration-300 hover:border-gold hover:shadow-gold;
+  }
+}
