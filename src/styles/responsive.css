@@ -197,7 +197,7 @@
 }
 
 @media (prefers-reduced-motion:reduce) {
-  .chapter-track, .chapter *, .chapter *::before, .chapter *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; transition-delay:0ms !important; }
+  .chapter *, .chapter *::before, .chapter *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; transition-delay:0ms !important; }
   .chapter .hero-copy > *, .chapter--experiencia .experience-layout > div > *, .chapter--viagem .journey-copy > *, .chapter--viagem .request-panel, .chapter--contactos .contact-section .container > * { opacity:1 !important; transform:none !important; clip-path:none !important; }
   .chapter .gold-line { transform:none !important; }
   .chapter .booking-steps li, .chapter .journey-list details { background-size:100% 1px !important; }
