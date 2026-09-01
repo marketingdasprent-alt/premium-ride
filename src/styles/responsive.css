@@ -106,10 +106,9 @@
   .chapter-stage { overflow:hidden; min-height:0; }
   .chapter-track { display:flex; height:100%; transform:translateX(calc(var(--chapter-index) * -100%)); transition:transform 920ms cubic-bezier(.22,1,.36,1); will-change:transform; }
   .chapter { flex:0 0 100%; min-width:0; height:100%; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; scrollbar-gutter:stable; background:var(--color-background); }
-  .chapter > * { transition:opacity 620ms cubic-bezier(.22,1,.36,1),transform 820ms cubic-bezier(.22,1,.36,1),filter 620ms ease; will-change:opacity,transform,filter; }
-  .chapter.is-before > * { opacity:.32; transform:translateX(-2rem); filter:blur(2px); }
-  .chapter.is-after > * { opacity:.32; transform:translateX(2rem); filter:blur(2px); }
-  .chapter.is-active > * { opacity:1; transform:translateX(0); filter:blur(0); }
+  .chapter > * { transition:opacity 540ms cubic-bezier(.22,1,.36,1); will-change:opacity; }
+  .chapter.is-before > *, .chapter.is-after > * { opacity:.58; }
+  .chapter.is-active > * { opacity:1; }
   .chapter:focus { outline:none; }
   .chapter--inicio { display:flex; flex-direction:column; }
   .chapter--inicio .hero { flex:1; --section-padding-spacious:var(--space-lg); }
@@ -129,7 +128,7 @@
 
 @media (prefers-reduced-motion:reduce) {
   .chapter-track, .chapter > * { transition:none !important; }
-  .chapter.is-before > *, .chapter.is-after > *, .chapter.is-active > * { opacity:1; transform:none; filter:none; }
+  .chapter.is-before > *, .chapter.is-after > *, .chapter.is-active > * { opacity:1; }
 }
 @media (min-width:1024px) {
   html:has(.ride-site) { scrollbar-gutter:auto; }
@@ -140,7 +139,7 @@
   .chapter--inicio .hero-layout { min-height:0; height:auto; }
   .chapter-navigation { position:absolute; inset:6.5rem 0 0; padding:0; border:0; background:none; pointer-events:none; z-index:var(--z-dropdown); }
   .chapter-arrow { pointer-events:auto; }
-  .chapter:not(.chapter--inicio) .container { padding-inline:max(var(--container-gutter),3.5rem); }
+  .chapter:not(.chapter--inicio) .container { padding-inline:max(var(--container-gutter),5rem); }
 }
 @media (max-width:1023px) {
   .hero--carousel .hero-layout { min-height:30rem; }
