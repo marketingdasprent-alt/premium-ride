@@ -1,0 +1,185 @@
+/**
+ * RESPONSIVE: Level 1. Most of the system is fluid by default
+ * (clamp/minmax in tokens.css and layout.css) and needs no media
+ * query at all. This file holds the few rules that are genuinely
+ * discrete (nav collapses to a menu, grid goes from 1 to N columns)
+ * rather than continuous.
+ *
+ * Breakpoint reference (QA validation points: not a mandate to add
+ * a media query at each one, see docs/responsive.md):
+ *   480px  mobile-large
+ *   768px  tablet
+ *   1024px laptop / tablet-landscape
+ *   1280px desktop
+ *   1440px desktop-large
+ */
+
+/* Header: mobile menu collapses into the toggle below 1024px */
+@media (min-width: 1024px) {
+  .header__nav {
+    display: flex;
+  }
+
+  .header__toggle {
+    display: none;
+  }
+
+  .header__mobile-panel {
+    display: none;
+  }
+}
+
+/* Footer: columns grow from a single stack to a 4-column row */
+@media (min-width: 768px) {
+  .footer__grid {
+    grid-template-columns: minmax(16rem, 1fr) 2fr;
+  }
+
+  .footer__columns {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .footer__bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+/* Generic 12-col grid: single column below tablet so authored spans
+   (e.g. grid-column: span 4) don't fight a cramped viewport. */
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grid > * {
+    grid-column: auto !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .ride-header { position:sticky; top:0; z-index:var(--z-header); box-shadow:0 1px 0 var(--color-border); }
+  .desktop-nav, .header-contact { display:none; }
+  .menu-toggle { display:flex; align-items:center; gap:var(--space-xs); color:var(--color-primary); }
+  .mobile-nav { position:absolute; top:100%; left:0; right:0; background:var(--color-background); box-shadow:0 1rem 2rem rgba(0,0,0,.28); }
+  .hero-layout { gap:var(--space-lg); }
+  .hero-visual { height:34rem; }
+  .journey-layout, .experience-layout { gap:var(--space-xl); }
+  .request-panel { padding:var(--space-md); }
+}
+@media (max-width: 767px) {
+  .header-inner { min-height:5rem; }
+  .chapter > .section > .container, .chapter--inicio .hero > .container { width:100%; max-width:34rem; margin-inline:auto; }
+  .hero-layout, .experience-layout, .journey-layout { grid-template-columns:minmax(0,1fr); }
+  .hero-visual { height:26rem; margin-top:var(--space-md); }
+  .hero h1 { font-size:clamp(3rem,10vw,4.5rem); }
+  .hero-signature { margin-top:var(--space-lg); }
+  .values-strip .container { flex-direction:column; gap:var(--space-xs); }
+  .experience-copy { margin-top:var(--space-sm); }
+  .footer-top { flex-wrap:wrap; justify-content:flex-start; }
+  .footer-top .text-link { margin-left:auto; }
+  .footer-bottom { flex-direction:column; flex-wrap:wrap; align-items:center; justify-content:center; text-align:center; }
+  .footer-bottom > div { width:100%; justify-content:center; flex-wrap:wrap; gap:var(--space-sm) var(--space-md); }
+  .contact-number { gap:var(--space-sm); }
+}
+/* Carousel hero: all adaptations stay inside this section. */
+@media (max-width:1023px) {
+  .hero--carousel .hero-layout { min-height:34rem; }
+  .hero--carousel .hero-media-footer { flex-direction:column; align-items:start; }
+  .hero--carousel .hero-controls { flex-direction:row; align-items:center; gap:var(--space-md); }
+}
+@media (max-width:767px) {
+  .hero--carousel { --section-padding-spacious:var(--space-lg); }
+  .hero--carousel .hero-layout { min-height:0; gap:var(--space-md); }
+  .hero--carousel .hero-backdrop { inset:auto 0 0; height:29rem; }
+  .hero--carousel::after { background:linear-gradient(to bottom,var(--color-background) 0%,var(--color-background) calc(100% - 28rem),rgba(17,19,17,.88) calc(100% - 23rem),rgba(17,19,17,.12) calc(100% - 16rem),transparent 100%); }
+  .hero--carousel .hero-slide img { object-position:center 58%; }
+  .hero--carousel .hero-media-footer { min-height:23rem; justify-content:end; padding:0; gap:var(--space-sm); background:none; }
+  .hero--carousel .hero-caption, .hero--carousel .hero-controls { background:rgba(17,19,17,.82); padding:var(--space-xs); }
+  .hero--carousel .hero-controls { width:100%; justify-content:space-between; }
+  .hero--carousel .hero-backdrop::before { display:none; }
+  .hero--carousel .hero-backdrop::after { display:block; inset:0; height:auto; background:linear-gradient(to bottom,var(--color-background) 0%,transparent 15%,transparent 68%,var(--color-background) 100%); }
+}
+@media (min-width:1024px) {
+  .ride-site { height:100dvh; display:grid; grid-template-rows:auto minmax(0,1fr) auto; overflow:hidden; }
+  .chapter-stage { overflow:hidden; min-height:0; }
+  .chapter-track { display:flex; height:100%; transform:translateX(calc(var(--chapter-index) * -100%)); transition:transform 800ms cubic-bezier(.22,1,.36,1); will-change:transform; }
+  .chapter { flex:0 0 100%; min-width:0; height:100%; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; scrollbar-gutter:stable; background:var(--color-background); }
+  .chapter:focus { outline:none; }
+  .chapter--inicio { display:flex; flex-direction:column; }
+  .chapter--inicio .hero { flex:1; --section-padding-spacious:var(--space-lg); }
+  .chapter--inicio .hero-layout { min-height:clamp(30rem,calc(100dvh - 18rem),48rem); height:100%; }
+  .chapter--inicio .hero h1 { font-size:clamp(3rem,6.5vh,5.8rem); }
+  .chapter--inicio .values-strip { flex-shrink:0; }
+  .chapter--experiencia > .section { min-height:100%; display:flex; align-items:center; --section-padding-spacious:var(--space-lg); }
+  .chapter--viagem > .section { min-height:100%; --section-padding-spacious:var(--space-xl); }
+  .chapter--contactos { display:flex; flex-direction:column; }
+  .chapter--contactos > .section { flex:1; --section-padding-spacious:var(--space-xl); }
+  .chapter-navigation { display:block; background:var(--color-background); border-top:1px solid var(--color-border); padding-block:var(--space-xs); }
+  .ride-site:has(.chapter--inicio:not([inert])) .desktop-nav a[href="#inicio"],
+  .ride-site:has(.chapter--experiencia:not([inert])) .desktop-nav a[href="#experiencia"],
+  .ride-site:has(.chapter--viagem:not([inert])) .desktop-nav a[href="#viagem"],
+  .ride-site:has(.chapter--contactos:not([inert])) .desktop-nav a[href="#contactos"] { color:var(--color-primary); text-decoration:underline; text-underline-offset:.5em; }
+}
+@media (min-width:1024px) {
+  html:has(.ride-site) { scrollbar-gutter:auto; }
+  .ride-site { position:relative; grid-template-rows:auto minmax(0,1fr); }
+  .ride-site .ride-header { border-bottom:0; }
+  .chapter { scrollbar-gutter:auto; }
+  .chapter--inicio .hero { min-height:100%; display:flex; align-items:center; padding-bottom:var(--hero-values-space); }
+  .chapter--inicio .hero-layout { min-height:0; height:auto; }
+  .chapter-navigation { position:absolute; inset:6.5rem 0 0; padding:0; border:0; background:none; pointer-events:none; z-index:var(--z-dropdown); }
+  .chapter-arrow { pointer-events:auto; }
+  .chapter:not(.chapter--inicio) .container { padding-inline:max(var(--container-gutter),3.5rem); }
+}
+@media (max-width:1023px) {
+  .hero--carousel .hero-layout { min-height:30rem; }
+  .hero--carousel .hero-media-footer { align-items:end; }
+  .hero--carousel .hero-controls { flex-direction:column; align-items:end; }
+  .hero-values { gap:var(--space-md); flex-wrap:wrap; }
+}
+@media (max-width:767px) {
+  .hero--carousel { padding-bottom:12rem; }
+  .hero--carousel .hero-layout { min-height:0; padding-bottom:24rem; }
+  .hero--carousel .hero-backdrop { height:40rem; }
+  .hero--carousel::after { background:linear-gradient(to bottom,var(--color-background) 0%,var(--color-background) calc(100% - 39rem),rgba(17,19,17,.85) calc(100% - 34rem),transparent calc(100% - 23rem)); }
+  .hero--carousel .hero-media-footer { min-height:0; gap:0; }
+  .hero--carousel .hero-controls { width:auto; background:none; padding:0; }
+  .hero-values { bottom:var(--space-lg); flex-direction:column; gap:var(--space-sm); padding-right:8.5rem; }
+  .hero--carousel .hero-copy h1 em { display:inline-block; white-space:nowrap; font-size:.92em; }
+}
+
+@media (min-width:1024px) {
+  .chapter--viagem > .section { --section-padding-spacious:var(--space-sm); }
+  .chapter--viagem .journey-layout { gap:var(--space-xl); align-items:center; }
+  .chapter--viagem .request-panel { padding:var(--space-md); }
+  .chapter--viagem .request-heading .eyebrow { margin-bottom:var(--space-2xs); }
+  .chapter--viagem .request-heading h3 { font-size:clamp(1.75rem,2.3vw,2.25rem); line-height:1.15; margin-bottom:var(--space-2xs); }
+  .chapter--viagem .request-heading p { font-size:var(--font-size-caption); }
+  .chapter--viagem .request-form { margin-top:var(--space-sm); gap:var(--space-2xs); }
+  .chapter--viagem .field__control { min-height:40px; padding-block:var(--space-2xs); }
+  .chapter--viagem .field__label { margin-bottom:var(--space-3xs); }
+  .chapter--viagem .request-form .btn { min-height:44px; }
+  .chapter--viagem .form-options summary { min-height:40px; }
+  .chapter--viagem .journey-copy .eyebrow { margin-bottom:var(--space-md); }
+  .chapter--viagem .journey-copy h2 { font-size:clamp(2rem,3.2vw,3rem); }
+  .chapter--viagem .journey-copy > p:not(.eyebrow) { margin-top:var(--space-md); }
+  .chapter--viagem .journey-list { margin-top:var(--space-lg); }
+  .chapter--viagem .journey-list summary { padding-block:var(--space-sm); }
+}
+@media (max-width:767px) {
+  .hero-values { padding-inline:var(--container-gutter); gap:var(--space-sm); }
+  .hero-static-note { left:var(--container-gutter); right:var(--container-gutter); text-align:center; }
+}
+
+@media (min-width:1024px) {
+  .chapter--viagem > .section { display:grid; align-items:center; }
+  .chapter--contactos > .contact-section { display:grid; align-items:center; }
+}
+@media (max-width:767px) {
+  .brand-logo { width:7.2rem; height:4.75rem; }
+  .brand-logo img { width:8rem; height:8rem; left:-.4rem; top:-1.15rem; }
+  .chapter--contactos .contact-section::before { mask-size:95vw auto; opacity:.1; }
+  .chapter--contactos .contact-heading { font-size:clamp(2rem,10vw,3rem); }
+}
