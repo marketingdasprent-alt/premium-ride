@@ -769,7 +769,8 @@ em { color:var(--color-primary); font-weight:400; }
 .brand-logo img { position:absolute; width:10rem; height:10rem; max-width:none; left:-.5rem; top:-1.75rem; }
 .chapter--contactos { --color-text-primary:#fff; --color-text-secondary:#fff; --color-text-muted:#fff; --color-primary:#fff; --color-primary-hover:#fff; }
 .chapter--contactos .contact-section { position:relative; isolation:isolate; }
-.chapter--contactos .contact-section::before { content:''; position:absolute; inset:0; z-index:-1; background-color:#cbb77e; opacity:.14; mask-image:url('/logo.png'); mask-repeat:no-repeat; mask-position:center; mask-size:min(75vw,46rem) auto; pointer-events:none; }
+.chapter--contactos .contact-section::after { content:''; position:absolute; z-index:-2; width:min(76vw,58rem); aspect-ratio:1.7; left:50%; top:50%; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(ellipse,rgba(203,183,126,.17) 0%,rgba(117,106,75,.09) 45%,transparent 74%); filter:blur(1.5rem); pointer-events:none; }
+.chapter--contactos .contact-section::before { content:''; position:absolute; z-index:-1; width:min(48vw,35rem); aspect-ratio:1.65; left:50%; top:50%; transform:translate(-50%,-50%); background:#050605; opacity:.72; mask-image:url('/logo.png'); mask-repeat:no-repeat; mask-position:center top; mask-size:100% auto; pointer-events:none; }
 .chapter--contactos .ride-footer { flex-shrink:0; }
 .chapter--contactos .contact-heading { max-width:24ch; margin-inline:auto; font-size:clamp(2rem,3.2vw,3.25rem); }
 .chapter--contactos .contact-heading em { color:#cbb77e; }

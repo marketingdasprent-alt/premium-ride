@@ -180,6 +180,7 @@
 @media (max-width:767px) {
   .brand-logo { width:7.2rem; height:4.75rem; }
   .brand-logo img { width:8rem; height:8rem; left:-.4rem; top:-1.15rem; }
-  .chapter--contactos .contact-section::before { mask-size:95vw auto; opacity:.1; }
+  .chapter--contactos .contact-section::before { width:min(86vw,25rem); opacity:.58; top:46%; }
+  .chapter--contactos .contact-section::after { width:110vw; top:46%; opacity:.8; }
   .chapter--contactos .contact-heading { font-size:clamp(2rem,10vw,3rem); }
 }
