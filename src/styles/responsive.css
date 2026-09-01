@@ -104,7 +104,7 @@
 @media (min-width:1024px) {
   .ride-site { height:100dvh; display:grid; grid-template-rows:auto minmax(0,1fr) auto; overflow:hidden; }
   .chapter-stage { overflow:hidden; min-height:0; }
-  .chapter-track { display:flex; height:100%; transform:translateX(calc(var(--chapter-index) * -100%)); transition:transform 1100ms cubic-bezier(.22,1,.36,1); will-change:transform; }
+  .chapter-track { display:flex; height:100%; transform:translateX(calc(var(--chapter-index) * -100%)); transition:transform 1450ms cubic-bezier(.4,0,.2,1); will-change:transform; }
   .chapter { flex:0 0 100%; min-width:0; height:100%; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; scrollbar-gutter:stable; background:var(--color-background); }
   .chapter:focus { outline:none; }
   .chapter--inicio { display:flex; flex-direction:column; }
