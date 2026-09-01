@@ -11,7 +11,6 @@ const fromHash = () => Math.max(0, chapters.findIndex(item => `#${item.id}` === 
 
 export default function HorizontalExperience({ header, panels }: { header: ReactNode; panels: ReactNode[] }) {
   const [active, setActive] = useState(fromHash);
-  const [entered, setEntered] = useState<number | null>(null);
   const [desktop, setDesktop] = useState(() => window.matchMedia('(min-width: 1024px)').matches);
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const focusNext = useRef(false);
@@ -25,23 +24,11 @@ export default function HorizontalExperience({ header, panels }: { header: React
   useEffect(() => { activeRef.current = active; }, [active]);
 
   useEffect(() => {
-    let secondFrame = 0;
-    const firstFrame = window.requestAnimationFrame(() => {
-      secondFrame = window.requestAnimationFrame(() => setEntered(active));
-    });
-    return () => {
-      window.cancelAnimationFrame(firstFrame);
-      window.cancelAnimationFrame(secondFrame);
-    };
-  }, [active]);
-
-  useEffect(() => {
     const media = window.matchMedia('(min-width: 1024px)');
     const resize = () => setDesktop(media.matches);
     const hash = () => {
       if (media.matches) { transitioning.current = true; transitionDone.current = false; }
       focusNext.current = true;
-      setEntered(null);
       setActive(fromHash());
     };
     media.addEventListener('change', resize);
@@ -62,7 +49,6 @@ export default function HorizontalExperience({ header, panels }: { header: React
     }
     window.history.pushState(null, '', `#${chapters[index].id}`);
     focusNext.current = true;
-    setEntered(null);
     setActive(index);
   }
 
@@ -123,7 +109,7 @@ export default function HorizontalExperience({ header, panels }: { header: React
   }} style={{ '--chapter-index': active } as CSSProperties}>
     {header}
     <main id="main-content" className="chapter-stage" tabIndex={-1}>
-      <div className="chapter-track" onTransitionEnd={handleTransitionEnd}>{panels.map((panel, index) => <div key={chapters[index].id} id={index === 0 ? 'inicio' : undefined} ref={node => { panelRefs.current[index] = node; }} className={`chapter chapter--${chapters[index].id}${index < active ? ' is-before' : index > active ? ' is-after' : ' is-active'}${entered === index ? ' is-entered' : ''}`} role="region" aria-label={chapters[index].label} inert={desktop && active !== index} aria-hidden={desktop && active !== index ? true : undefined} tabIndex={-1}>{panel}</div>)}</div>
+      <div className="chapter-track" onTransitionEnd={handleTransitionEnd}>{panels.map((panel, index) => <div key={chapters[index].id} id={index === 0 ? 'inicio' : undefined} ref={node => { panelRefs.current[index] = node; }} className={`chapter chapter--${chapters[index].id}`} role="region" aria-label={chapters[index].label} inert={desktop && active !== index} aria-hidden={desktop && active !== index ? true : undefined} tabIndex={-1}>{panel}</div>)}</div>
     </main>
     <nav className="chapter-navigation" aria-label="Navegação entre secções">
       {active > 0 && <button className="chapter-arrow chapter-arrow--previous" type="button" onClick={() => go(active - 1)} aria-label="Secção anterior"><span aria-hidden="true">←</span></button>}
