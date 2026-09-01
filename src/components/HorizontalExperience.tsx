@@ -11,7 +11,9 @@ const fromHash = () => Math.max(0, chapters.findIndex(item => `#${item.id}` === 
 
 export default function HorizontalExperience({ header, panels }: { header: ReactNode; panels: ReactNode[] }) {
   const [active, setActive] = useState(fromHash);
+  const [revealed, setRevealed] = useState<number | null>(fromHash);
   const [desktop, setDesktop] = useState(() => window.matchMedia('(min-width: 1024px)').matches);
+  const trackRef = useRef<HTMLDivElement | null>(null);
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const focusNext = useRef(false);
   const activeRef = useRef(active);
@@ -24,11 +26,39 @@ export default function HorizontalExperience({ header, panels }: { header: React
   useEffect(() => { activeRef.current = active; }, [active]);
 
   useEffect(() => {
+    let frame = 0;
+    const revealAtVisiblePosition = () => {
+      const track = trackRef.current;
+      const panelWidth = panelRefs.current[active]?.offsetWidth ?? 0;
+      if (!desktop || !track || !panelWidth || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        frame = window.requestAnimationFrame(() => setRevealed(active));
+        return;
+      }
+      const matrix = new DOMMatrixReadOnly(window.getComputedStyle(track).transform);
+      const remaining = Math.abs(matrix.m41 + active * panelWidth);
+      if (remaining <= panelWidth * .28) setRevealed(active);
+      else frame = window.requestAnimationFrame(revealAtVisiblePosition);
+    };
+    frame = window.requestAnimationFrame(revealAtVisiblePosition);
+    return () => window.cancelAnimationFrame(frame);
+  }, [active, desktop]);
+
+  useEffect(() => {
+    if (desktop) return;
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) if (entry.isIntersecting) entry.target.classList.add('is-mobile-visible');
+    }, { threshold:.18 });
+    panelRefs.current.forEach(panel => panel && observer.observe(panel));
+    return () => observer.disconnect();
+  }, [desktop]);
+
+  useEffect(() => {
     const media = window.matchMedia('(min-width: 1024px)');
     const resize = () => setDesktop(media.matches);
     const hash = () => {
       if (media.matches) { transitioning.current = true; transitionDone.current = false; }
       focusNext.current = true;
+      setRevealed(null);
       setActive(fromHash());
     };
     media.addEventListener('change', resize);
@@ -49,6 +79,7 @@ export default function HorizontalExperience({ header, panels }: { header: React
     }
     window.history.pushState(null, '', `#${chapters[index].id}`);
     focusNext.current = true;
+    setRevealed(null);
     setActive(index);
   }
 
@@ -85,6 +116,7 @@ export default function HorizontalExperience({ header, panels }: { header: React
   function handleTransitionEnd(event: TransitionEvent<HTMLDivElement>) {
     if (event.target !== event.currentTarget || event.propertyName !== 'transform') return;
     transitionDone.current = true;
+    setRevealed(activeRef.current);
     if (wheelQuiet.current) transitioning.current = false;
   }
 
@@ -109,7 +141,7 @@ export default function HorizontalExperience({ header, panels }: { header: React
   }} style={{ '--chapter-index': active } as CSSProperties}>
     {header}
     <main id="main-content" className="chapter-stage" tabIndex={-1}>
-      <div className="chapter-track" onTransitionEnd={handleTransitionEnd}>{panels.map((panel, index) => <div key={chapters[index].id} id={index === 0 ? 'inicio' : undefined} ref={node => { panelRefs.current[index] = node; }} className={`chapter chapter--${chapters[index].id}`} role="region" aria-label={chapters[index].label} inert={desktop && active !== index} aria-hidden={desktop && active !== index ? true : undefined} tabIndex={-1}>{panel}</div>)}</div>
+      <div ref={trackRef} className="chapter-track" onTransitionEnd={handleTransitionEnd}>{panels.map((panel, index) => <div key={chapters[index].id} id={index === 0 ? 'inicio' : undefined} ref={node => { panelRefs.current[index] = node; }} className={`chapter chapter--${chapters[index].id}${index < active ? ' is-before' : index > active ? ' is-after' : ' is-active'}${revealed === index ? ' is-revealed' : ''}`} role="region" aria-label={chapters[index].label} inert={desktop && active !== index} aria-hidden={desktop && active !== index ? true : undefined} tabIndex={-1}>{panel}</div>)}</div>
     </main>
     <nav className="chapter-navigation" aria-label="Navegação entre secções">
       {active > 0 && <button className="chapter-arrow chapter-arrow--previous" type="button" onClick={() => go(active - 1)} aria-label="Secção anterior"><span aria-hidden="true">←</span></button>}
