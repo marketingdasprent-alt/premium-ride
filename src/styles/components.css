@@ -670,8 +670,11 @@ em { color:var(--color-primary); font-weight:400; }
 .driver-path-content ul { margin:var(--space-md) 0; padding:0; list-style:none; color:var(--color-text-secondary); font-size:var(--font-size-caption); }
 .driver-path-content li { min-height:2.25rem; padding-block:var(--space-2xs); border-bottom:1px solid var(--color-border); display:flex; align-items:center; gap:var(--space-xs); }
 .driver-path-list-icon { width:1rem; height:1rem; flex:0 0 auto; color:var(--color-primary); }
-.driver-path-link { margin-top:auto; min-height:44px; display:flex; align-items:center; justify-content:space-between; gap:var(--space-sm); color:var(--color-text-primary); font-size:var(--font-size-body-small); border-top:1px solid var(--color-border-strong); padding-top:var(--space-sm); }
-.driver-path-link:hover { color:var(--color-primary); }
+.driver-path-link { margin-top:auto; min-height:3.25rem; display:flex; align-items:center; justify-content:center; gap:var(--space-sm); padding:var(--space-xs) var(--space-md); border:1px solid var(--color-primary); background:transparent; color:var(--color-primary); font-size:var(--font-size-body-small); font-weight:600; text-align:center; transition:color var(--duration-normal),background-color var(--duration-normal),border-color var(--duration-normal),transform var(--duration-normal); }
+.driver-path-link:hover { color:var(--color-background); background:var(--color-primary); transform:translateY(-2px); }
+.driver-path-link:focus-visible { outline:2px solid var(--color-text-primary); outline-offset:3px; }
+.driver-path-card--featured .driver-path-link { background:var(--color-primary); color:var(--color-background); }
+.driver-path-card--featured .driver-path-link:hover { background:var(--color-primary-hover); border-color:var(--color-primary-hover); }
 .driver-choice-note { grid-column:2; color:var(--color-text-muted); font-size:var(--font-size-caption); }
 .request-panel { background:var(--color-background); border:1px solid var(--color-border); padding:var(--space-xl); }
 .request-heading .eyebrow { margin-bottom:var(--space-sm); }
