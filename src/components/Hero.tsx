@@ -4,9 +4,9 @@ import Section from './layout/Section';
 import Button from './ui/Button';
 
 const slides = [
-  { src: '/ride-mercedes-night.jpg', alt: 'Mercedes preto junto a um edifício à noite — imagem ilustrativa' },
-  { src: '/ride-mercedes-city.jpg', alt: 'Mercedes preto numa rua iluminada à noite — imagem ilustrativa' },
-  { src: '/ride-bmw-garage.jpg', alt: 'BMW preto num estacionamento à noite — imagem ilustrativa' },
+  { src: '/ride-executive-building.jpg', alt: 'Viatura executiva preta junto a um edifício à noite — imagem ilustrativa' },
+  { src: '/ride-executive-city.jpg', alt: 'Viatura executiva preta numa rua iluminada à noite — imagem ilustrativa' },
+  { src: '/ride-executive-garage.jpg', alt: 'Viatura executiva preta num estacionamento à noite — imagem ilustrativa' },
 ];
 
 export default function Hero() {
